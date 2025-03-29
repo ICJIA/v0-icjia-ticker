@@ -76,12 +76,16 @@ body.light-mode.ticker-bottom .ticker-container {
     padding: var(--ticker-padding); /* Use configurable padding */
     min-height: var(--ticker-height); /* Use configurable height */
     z-index: 9999; /* Ensure the ticker stays above other content */
-    position: fixed; /* Stick to the top or bottom */
+    position: fixed; /* Ensure the ticker is independent of page content */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .centered-text {
     text-align: center;
-    margin-bottom: 50px; /* Reduced margin to tighten spacing */
+    margin-bottom: 20px; /* Add spacing below the text */
+    margin-top: -180px; /* Adjust text position upwards */
 }
 
 .ticker-wrapper {
@@ -276,7 +280,7 @@ body.light-mode .ticker-popup {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20px 0 0 0; /* Ensure 20px spacing above the dashboard */
     padding: 10px;
     background-color: #333;
     color: #fff;
@@ -367,13 +371,21 @@ body.light-mode .ticker-popup {
 
 .octocat-link {
     position: absolute;
-    top: 10px;
-    right: 10px;
     z-index: 1000;
     display: inline-block;
     width: 40px;
     height: 40px;
     transition: transform 0.2s ease-in-out;
+}
+
+body.ticker-top .octocat-link {
+    bottom: 10px; /* Move to the lower right corner */
+    right: 10px;
+}
+
+body.ticker-bottom .octocat-link {
+    top: 10px; /* Default position in the upper right corner */
+    right: 10px;
 }
 
 .octocat-link:hover .octocat-tooltip {
@@ -393,9 +405,9 @@ body.light-mode .octocat-logo {
 
 .octocat-tooltip {
     position: absolute;
-    top: 50%;
+    top: 50%; /* Center vertically relative to the Octocat image */
     right: 50px;
-    transform: translateY(-50%) translateX(0);
+    transform: translateY(-50%) translateX(0); /* Adjust for centering */
     background-color: #333;
     color: #fff;
     padding: 5px 10px;
@@ -413,7 +425,6 @@ body.light-mode .octocat-tooltip {
     color: #222;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 a:focus,
 button:focus,

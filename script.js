@@ -339,7 +339,7 @@ class Ticker {
 
     const title = target.querySelector("strong").textContent;
     const fullContent = target.getAttribute("data-full-content");
-    const url = target.href.replace(/^https?:\/\//, ""); // Remove "https://"
+    const url = target.href;
 
     const popup = document.createElement("div");
     popup.className = "ticker-popup";
@@ -354,13 +354,15 @@ class Ticker {
     contentElement.className = "ticker-popup-content";
     contentElement.textContent = fullContent;
 
-    const urlElement = document.createElement("div");
-    urlElement.className = "ticker-popup-link";
-    urlElement.textContent = url; // Display the link without "https://"
-
     popup.appendChild(titleElement);
     popup.appendChild(contentElement);
-    popup.appendChild(urlElement);
+
+    // Make the entire bubble clickable
+    popup.addEventListener("click", () => {
+      console.log("Popup clicked. Navigating to URL and removing popup.");
+      window.open(url, "_blank");
+      this._removePopup(popup);
+    });
 
     document.body.appendChild(popup);
 
@@ -395,18 +397,22 @@ class Ticker {
       this.resumeTicker();
     };
 
-    target.addEventListener("mouseleave", removePopup, { once: true });
-    target.addEventListener("blur", removePopup, { once: true });
-
-    popup.addEventListener("click", (event) => {
-      event.stopPropagation(); // Prevent click from propagating to the ticker
-      console.log("Popup clicked. Removing popup.");
-      removePopup();
+    // Keep the popup visible when hovered
+    popup.addEventListener("mouseenter", () => {
+      console.log("Mouse entered popup. Keeping it visible.");
+      this.ticker.removeEventListener("mouseleave", removePopup);
     });
 
-    if ("ontouchstart" in window) {
-      setTimeout(removePopup, 3000);
-    }
+    // Remove popup when the mouse leaves the popup
+    // popup.addEventListener("mouseleave", removePopup);
+
+    // Remove popup when the mouse leaves the ticker bar, unless the popup is hovered
+    this.ticker.addEventListener("mouseleave", () => {
+      console.log("Mouse left ticker bar. Removing popup if not hovered.");
+      if (!popup.matches(":hover")) {
+        removePopup();
+      }
+    });
   }
 
   /**
@@ -496,6 +502,16 @@ class Ticker {
       this.config.position = position;
       document.body.classList.toggle("ticker-top", position === "top");
       document.body.classList.toggle("ticker-bottom", position === "bottom");
+
+      // Dynamically update Octocat position
+      const octocatLink = document.querySelector(".octocat-link");
+      if (position === "top") {
+        octocatLink.style.bottom = "10px";
+        octocatLink.style.top = "";
+      } else {
+        octocatLink.style.top = "10px";
+        octocatLink.style.bottom = "";
+      }
     });
 
     // Update ticker speed
