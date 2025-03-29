@@ -315,6 +315,18 @@ class Ticker {
         this._showPopup(target);
       }
     });
+
+    this.ticker.addEventListener("click", (event) => {
+      const target = event.target.closest(".ticker-item a");
+      if (target) {
+        event.preventDefault(); // Prevent default navigation
+        console.log("Link clicked. Removing popup and navigating to URL.");
+        this._removeAllPopups();
+        setTimeout(() => {
+          window.open(target.href, "_blank"); // Open the link in a new tab
+        }, 100); // Small delay to ensure the popup is removed first
+      }
+    });
   }
 
   /**
@@ -385,6 +397,8 @@ class Ticker {
 
     target.addEventListener("mouseleave", removePopup, { once: true });
     target.addEventListener("blur", removePopup, { once: true });
+
+    popup.addEventListener("mouseover", removePopup, { once: true }); // Close popup on hover
 
     if ("ontouchstart" in window) {
       setTimeout(removePopup, 3000);
