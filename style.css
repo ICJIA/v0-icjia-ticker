@@ -4,6 +4,12 @@ body {
     background-color: #111;
     color: white;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 body.ticker-top .ticker-container,
@@ -34,6 +40,13 @@ body.ticker-bottom .ticker-container {
     position: relative;
     padding: 12px 0;
     min-height: 50px;
+    z-index: 9999; /* Ensure the ticker stays above other content */
+    position: fixed; /* Stick to the top or bottom */
+}
+
+.centered-text {
+    text-align: center;
+    margin-bottom: 100px; /* Add space above the ticker */
 }
 
 .ticker-wrapper {

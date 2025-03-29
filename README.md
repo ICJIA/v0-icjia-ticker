@@ -2,6 +2,8 @@
 
 This project is a **proof-of-concept** for a responsive news ticker that can be used in future websites. It demonstrates how to fetch, display, and interact with dynamic content in a visually appealing and accessible way.
 
+> **Inspiration**: This project was inspired by the news ticker at the bottom of the Washington Post homepage.
+
 ## Features
 
 - **Dynamic Content**: Fetches news items from a JSON file (`ticker-data.json`) and displays them in a scrolling ticker.
@@ -32,19 +34,29 @@ This project is a **proof-of-concept** for a responsive news ticker that can be 
 
    > **Note**: The project requires a server to fetch the JSON file. Opening `index.html` directly in the browser will result in a CORS error.
 
+### What is CORS?
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to prevent unauthorized access to resources from a different origin (domain, protocol, or port). When you open `index.html` directly by clicking on it, the browser treats the file as being served from the `file://` protocol. This causes a CORS error when the JavaScript code tries to fetch the `ticker-data.json` file because the browser blocks the request for security reasons.
+
+To avoid this issue, you must serve the project files through a local server (e.g., using Python, Node.js, or any other server) so that the browser treats the files as being served from the same origin.
+
 ## Configuration
 
 You can customize the ticker by modifying the `Ticker` class in `script.js`. The following options are available:
 
-- `dataUrl`: URL of the JSON file containing the news items (default: `ticker-data.json`).
+- `dataUrl`: URL of the JSON file containing the news items (default: `"ticker-data.json"`).
 - `baseSpeed`: Base speed of the ticker (default: `16`).
 - `speedMultiplier`: Multiplier for ticker speed (default: `14`).
 - `rtl`: Set to `true` for right-to-left scrolling (default: `false`).
 - `darkMode`: Enable or disable dark mode (default: `true`).
 - `position`: Position of the ticker (`"top"` or `"bottom"`, default: `"bottom"`).
+- `retryAttempts`: Number of retry attempts for fetching data (default: `3`).
+- `retryDelay`: Delay in milliseconds between retry attempts (default: `2000`).
 - `bubbleTitleFontSize`: Font size for the speech bubble title (default: `"14px"`).
 - `bubbleContentFontSize`: Font size for the speech bubble content (default: `"12px"`).
 - `bubbleBackgroundColor`: Background color for the speech bubble (default: `"#fff"`).
+- `tickerBackgroundColor`: Background color for the ticker (default: `"#222"`).
+- `tickerTextColor`: Text color for the ticker (default: `"#fff"`).
 
 ## File Structure
 
@@ -57,24 +69,6 @@ You can customize the ticker by modifying the `Ticker` class in `script.js`. The
 ├── LICENSE.md         # MIT License
 └── README.md          # Project documentation
 ```
-
-## Usage
-
-1. Add your news items to `ticker-data.json` in the following format:
-
-   ```json
-   {
-     "items": [
-       {
-         "title": "Breaking News",
-         "content": "This is a detailed description of the news item.",
-         "url": "https://example.com/news"
-       }
-     ]
-   }
-   ```
-
-2. Start a local server and open the project in your browser to see the ticker in action.
 
 ## Future Enhancements
 
