@@ -1,7 +1,7 @@
 {
     "dataUrl": "ticker-data.json",
-    "baseSpeed": 16,
-    "speedMultiplier": 8,
+    "baseSpeed": 1,
+    "speedMultiplier": 12,
     "rtl": false,
     "darkMode": true,
     "position": "bottom",
