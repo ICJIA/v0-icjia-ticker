@@ -1,7 +1,22 @@
 :root {
-    --ticker-padding: 3px 0; /* Configurable padding for the ticker */
+    --ticker-padding: unset; /* Dynamically set by JavaScript */
     --ticker-text-color-light: #000; /* Configurable text color for light mode */
     --ticker-text-color-dark: #fff; /* Configurable text color for dark mode */
+    --ticker-height: unset; /* Dynamically set by JavaScript */
+    --ticker-item-margin: unset; /* Dynamically set by JavaScript */
+    --focus-outline-color: unset; /* Dynamically set by JavaScript */
+    --ticker-error-padding: 10px; /* Configurable padding for error messages */
+    --ticker-error-color: #ffbdbd; /* Configurable error text color */
+    --ticker-error-font-size: 1rem; /* Configurable error font size */
+    --ticker-popup-width: 300px; /* Configurable popup width */
+    --ticker-popup-height: 180px; /* Configurable popup height */
+    --ticker-popup-border-radius: 30px; /* Configurable popup border radius */
+    --ticker-popup-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2); /* Configurable popup shadow */
+    --bubble-title-font-size: unset; /* Dynamically set by JavaScript */
+    --bubble-content-font-size: unset; /* Dynamically set by JavaScript */
+    --bubble-background-color: unset; /* Dynamically set by JavaScript */
+    --ticker-background-color: unset; /* Dynamically set by JavaScript */
+    --ticker-text-color: unset; /* Dynamically set by JavaScript */
 }
 
 body {
@@ -45,7 +60,7 @@ body.ticker-bottom .ticker-container {
     white-space: nowrap;
     position: relative;
     padding: var(--ticker-padding); /* Use configurable padding */
-    min-height: 40px; /* Adjusted minimum height */
+    min-height: var(--ticker-height); /* Use configurable height */
     z-index: 9999; /* Ensure the ticker stays above other content */
     position: fixed; /* Stick to the top or bottom */
 }
@@ -66,6 +81,7 @@ body.ticker-bottom .ticker-container {
     animation: scrollTicker linear infinite;
     animation-fill-mode: forwards;
     animation-play-state: running;
+    will-change: transform; /* Optimize animation performance */
 }
 
 .ticker.paused {
@@ -76,7 +92,7 @@ body.ticker-bottom .ticker-container {
     display: inline-block;
     font-size: clamp(0.85rem, 1vw, 1.1rem);
     font-weight: 500;
-    margin: 0 40px; /* Increased spacing between ticker items */
+    margin: 0 var(--ticker-item-margin); /* Use configurable margin */
 }
 
 .ticker-item strong {
@@ -104,6 +120,7 @@ body.light-mode .ticker-container {
     color: var(--ticker-text-color-light); /* Use configurable text color for light mode */
 }
 
+/* Accessibility: Ensure sufficient contrast ratios for text and background colors */
 body.light-mode .ticker a {
     color: #007bff;
 }
@@ -125,11 +142,12 @@ body.dark-mode .ticker a:hover {
     }
 }
 
+/* Animation: Smooth scrolling effect for the ticker */
 .ticker-error {
     text-align: center;
-    padding: 10px;
-    color: #ffbdbd;
-    font-size: 1rem;
+    padding: var(--ticker-error-padding); /* Use configurable padding */
+    color: var(--ticker-error-color); /* Use configurable error text color */
+    font-size: var(--ticker-error-font-size); /* Use configurable font size */
     font-weight: 500;
 }
 
@@ -142,8 +160,8 @@ body.dark-mode .ticker a:hover {
     align-items: flex-start; /* Align content to the left */
     font-family: 'Roboto', sans-serif;
     font-size: var(--bubble-content-font-size, 14px);
-    width: 300px;
-    height: 180px;
+    width: var(--ticker-popup-width); /* Use configurable width */
+    height: var(--ticker-popup-height); /* Use configurable height */
     overflow: hidden;
     z-index: 1000;
     opacity: 0;
@@ -152,9 +170,9 @@ body.dark-mode .ticker a:hover {
     background-color: #f9f9f9; /* Lightened background for better contrast */
     color: #222; /* Darkened text color for 1:8 contrast ratio */
     border: none; /* Remove borders */
-    border-radius: 30px;
+    border-radius: var(--ticker-popup-border-radius); /* Use configurable border radius */
     font-weight: 500;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--ticker-popup-box-shadow); /* Use configurable shadow */
     cursor: pointer;
 }
 
@@ -224,6 +242,19 @@ body.dark-mode .ticker-popup {
 }
 
 .ticker-item a:focus {
-    outline: 2px solid #4d90fe;
+    outline: 2px solid var(--focus-outline-color); /* Use configurable focus outline color */
     outline-offset: 2px;
+}
+
+/* Responsive Design: Adjustments for different screen sizes */
+@media (max-width: 768px) {
+    /* Responsive adjustments for smaller screens */
+    .ticker-item {
+        font-size: clamp(0.75rem, 1.5vw, 1rem); /* Adjust font size */
+        margin: 0 20px; /* Reduce margin between items */
+    }
+
+    .ticker-container {
+        padding: 2px 0; /* Reduce padding for smaller screens */
+    }
 }

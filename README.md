@@ -36,11 +36,8 @@ https://v0-ticker.netlify.app/
 
 3. Open your browser and navigate to `http://localhost:8000` to view the ticker.
 
-   > **Note**: The project requires a server to fetch the JSON file. Opening `index.html` directly in the browser will result in a CORS error.
-
-### What is CORS?
-
-CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to prevent unauthorized access to resources from a different origin (domain, protocol, or port). When you open `index.html` directly by clicking on it, the browser treats the file as being served from the `file://` protocol. This causes a CORS error when the JavaScript code tries to fetch the `ticker-data.json` file because the browser blocks the request for security reasons.
+   > **Note**: The project requires a server to fetch the JSON file. Opening `index.html` directly in the browser will result in a CORS error. 
+   > CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to prevent unauthorized access to resources from a different origin (domain, protocol, or port). When you open `index.html` directly by clicking on it, the browser treats the file as being served from the `file://` protocol. This causes a CORS error when the JavaScript code tries to fetch the `ticker-data.json` file because the browser blocks the request for security reasons.
 
 To avoid this issue, you must serve the project files through a local server (e.g., using Python, Node.js, or any other server) so that the browser treats the files as being served from the same origin.
 

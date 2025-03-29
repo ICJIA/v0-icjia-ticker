@@ -1,0 +1,19 @@
+{
+    "dataUrl": "ticker-data.json",
+    "baseSpeed": 16,
+    "speedMultiplier": 4,
+    "rtl": false,
+    "darkMode": true,
+    "position": "top",
+    "retryAttempts": 3,
+    "retryDelay": 2000,
+    "bubbleTitleFontSize": "14px",
+    "bubbleContentFontSize": "12px",
+    "bubbleBackgroundColor": "#fff",
+    "tickerBackgroundColor": "#222",
+    "tickerTextColor": "#fff",
+    "tickerPadding": "3px 0",
+    "tickerHeight": "40px",
+    "tickerItemMargin": "40px",
+    "focusOutlineColor": "#4d90fe"
+}

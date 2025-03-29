@@ -1,41 +1,64 @@
+/**
+ * Ticker class to manage a responsive, configurable news ticker.
+ */
 class Ticker {
+  /**
+   * Initializes the Ticker instance.
+   * @param {Object} options - Optional configuration overrides.
+   */
   constructor(options = {}) {
-    // Default configuration
-    this.config = {
-      dataUrl: options.dataUrl || "ticker-data.json",
-      baseSpeed: options.baseSpeed || 16,
-      speedMultiplier: options.speedMultiplier || 14,
-      rtl: options.rtl || false,
-      darkMode: options.darkMode !== undefined ? options.darkMode : true,
-      position: options.position || "bottom", // "top" or "bottom"
-      retryAttempts: options.retryAttempts || 3,
-      retryDelay: options.retryDelay || 2000,
-      bubbleTitleFontSize: options.bubbleTitleFontSize || "14px", // Configurable title font size
-      bubbleContentFontSize: options.bubbleContentFontSize || "12px", // Configurable content font size
-      bubbleBackgroundColor: options.bubbleBackgroundColor || "#fff", // Configurable speech bubble background color
-      tickerBackgroundColor: options.tickerBackgroundColor || "#222", // Configurable ticker background color
-      tickerTextColor: options.tickerTextColor || "#fff", // Configurable ticker text color
-    };
-
-    // DOM elements
+    console.log("Initializing Ticker...");
+    this.config = {}; // Configuration will be loaded dynamically
     this.container = document.getElementById("ticker-container");
     this.ticker = document.getElementById("ticker");
     this.wrapper = document.getElementById("ticker-wrapper");
     this.errorBox = document.getElementById("ticker-error");
-
-    // State
     this.isPaused = false;
     this.retryCount = 0;
     this.resizeTimer = null;
 
-    // Initialize
-    this._applyTheme();
-    this._bindEvents();
-    this.fetchData();
-    this._applyStyles();
+    // Load configuration and initialize the ticker
+    this._loadConfig(options).then(() => {
+      console.log("Configuration loaded:", this.config);
+      this._applyTheme();
+      this._bindEvents();
+      this.fetchData();
+      this._applyStyles();
+    });
   }
 
+  /**
+   * Loads configuration from `config.json` and merges it with provided options.
+   * @param {Object} options - Optional configuration overrides.
+   * @returns {Promise<void>}
+   */
+  async _loadConfig(options) {
+    try {
+      console.log("Loading configuration from config.json...");
+      const response = await fetch("config.json");
+      const externalConfig = await response.json();
+      this.config = { ...externalConfig, ...options }; // Merge external config with options
+      console.log("Configuration successfully loaded.");
+      if (!this.config.dataUrl) {
+        this.config.dataUrl = "ticker-data.json"; // Default value
+      }
+    } catch (error) {
+      console.error("Failed to load configuration:", error);
+      this.config = { ...options }; // Fallback to provided options
+      if (!this.config.dataUrl) {
+        this.config.dataUrl = "ticker-data.json"; // Default value
+      }
+    }
+  }
+
+  /**
+   * Applies the theme (dark or light mode) and ticker position (top or bottom).
+   */
   _applyTheme() {
+    console.log(
+      "Applying theme:",
+      this.config.darkMode ? "Dark Mode" : "Light Mode"
+    );
     document.body.classList.add(
       this.config.darkMode ? "dark-mode" : "light-mode"
     );
@@ -44,7 +67,11 @@ class Ticker {
     );
   }
 
+  /**
+   * Dynamically applies styles to the document using CSS variables.
+   */
   _applyStyles() {
+    console.log("Applying styles...");
     document.documentElement.style.setProperty(
       "--bubble-title-font-size",
       this.config.bubbleTitleFontSize
@@ -65,35 +92,60 @@ class Ticker {
       "--ticker-text-color",
       this.config.tickerTextColor
     );
+    document.documentElement.style.setProperty(
+      "--ticker-padding",
+      this.config.tickerPadding
+    );
+    document.documentElement.style.setProperty(
+      "--ticker-height",
+      this.config.tickerHeight
+    );
+    document.documentElement.style.setProperty(
+      "--ticker-item-margin",
+      this.config.tickerItemMargin
+    );
+    document.documentElement.style.setProperty(
+      "--focus-outline-color",
+      this.config.focusOutlineColor
+    );
   }
 
+  /**
+   * Binds event listeners for resize, keyboard, and pause button interactions.
+   */
   _bindEvents() {
-    // Debounced resize handler
+    console.log("Binding events...");
     window.addEventListener("resize", () => {
+      console.log("Window resized.");
       if (this.resizeTimer) clearTimeout(this.resizeTimer);
       this.resizeTimer = setTimeout(() => {
         if (!this.isPaused) this._applyAnimationSpeed();
       }, 250);
     });
 
-    // Add keyboard controls
     document.addEventListener("keydown", (e) => {
-      // Pause/resume with spacebar when ticker is focused
       if (e.code === "Space" && document.activeElement === this.ticker) {
         e.preventDefault();
+        console.log("Spacebar pressed. Toggling pause.");
         this.togglePause();
       }
     });
 
-    // Add optional play/pause button if it exists
     const pauseButton = document.getElementById("ticker-pause");
     if (pauseButton) {
-      pauseButton.addEventListener("click", () => this.togglePause());
+      pauseButton.addEventListener("click", () => {
+        console.log("Pause button clicked.");
+        this.togglePause();
+      });
     }
   }
 
+  /**
+   * Fetches ticker data from the configured `dataUrl`.
+   */
   fetchData() {
-    this.showError(null); // Clear any previous errors
+    console.log("Fetching data from:", this.config.dataUrl);
+    this.showError(null);
 
     fetch(this.config.dataUrl)
       .then((res) => {
@@ -101,6 +153,7 @@ class Ticker {
         return res.json();
       })
       .then((data) => {
+        console.log("Data fetched successfully:", data);
         if (
           !data.items ||
           !Array.isArray(data.items) ||
@@ -112,8 +165,10 @@ class Ticker {
         this.initTicker(data.items);
       })
       .catch((err) => {
+        console.error("Error fetching data:", err);
         if (this.retryCount < this.config.retryAttempts) {
           this.retryCount++;
+          console.log(`Retrying fetch... Attempt ${this.retryCount}`);
           setTimeout(() => this.fetchData(), this.config.retryDelay);
           this.showError(
             `Loading ticker data... (Attempt ${this.retryCount}/${this.config.retryAttempts})`
@@ -124,6 +179,10 @@ class Ticker {
       });
   }
 
+  /**
+   * Displays an error message in the ticker error box.
+   * @param {string|null} message - The error message to display, or `null` to hide the error box.
+   */
   showError(message) {
     if (!message) {
       this.errorBox.style.display = "none";
@@ -133,25 +192,40 @@ class Ticker {
     this.errorBox.style.display = "block";
   }
 
+  /**
+   * Hides the error box.
+   */
   hideError() {
     this.errorBox.style.display = "none";
   }
 
+  /**
+   * Shows the ticker with optional content.
+   * @param {string} content - Content to display in the ticker.
+   */
   showTicker(content) {
     this.wrapper.style.display = "block";
     this.wrapper.setAttribute("aria-hidden", "false");
     if (content) this.ticker.textContent = content;
   }
 
+  /**
+   * Hides the ticker.
+   */
   hideTicker() {
     this.wrapper.style.display = "none";
     this.wrapper.setAttribute("aria-hidden", "true");
   }
 
+  /**
+   * Initializes the ticker with the provided items.
+   * @param {Array<Object>} items - Array of ticker items.
+   */
   initTicker(items) {
+    console.log("Initializing ticker with items:", items);
     this.showTicker("");
 
-    const fullItems = [...items, ...items];
+    const fullItems = [...items, ...items]; // Duplicate items for seamless scrolling
     this.ticker.innerHTML = "";
     this.ticker.setAttribute("tabindex", "0");
     this.ticker.setAttribute("role", "marquee");
@@ -167,16 +241,16 @@ class Ticker {
       link.rel = "noopener noreferrer";
       link.setAttribute("tabindex", "0");
 
-      // Display title in bold and truncate content after 50 characters if needed
       const title = document.createElement("strong");
       title.textContent = item.title || "Untitled";
-      const contentText =
-        item.content.length > 50
-          ? item.content.slice(0, 50) + "..."
-          : item.content;
-      const content = document.createTextNode(contentText); // Removed extra space
 
-      // Store full content in a data attribute for the popup
+      // Only add dots if the content is truncated at the 50th character
+      const isTruncated = item.content.length > 50;
+      const contentText = isTruncated
+        ? item.content.slice(0, 50) + "..." // Append dots directly without space
+        : item.content;
+      const content = document.createTextNode(contentText);
+
       link.setAttribute("data-full-content", item.content);
 
       link.appendChild(title);
@@ -185,79 +259,78 @@ class Ticker {
       this.ticker.appendChild(span);
     });
 
-    // Add #2 and #3
-    const item2 = document.createElement("span");
-    item2.className = "ticker-item";
-    item2.textContent = "Item #2: Custom static entry.";
-    this.ticker.appendChild(item2);
-
-    const item3 = document.createElement("span");
-    item3.className = "ticker-item";
-    item3.textContent = "Item #3: Another static entry.";
-    this.ticker.appendChild(item3);
-
+    console.log("Ticker items added to DOM.");
     this._applyAnimationSpeed();
     this._addInteractionListeners();
   }
 
+  /**
+   * Applies animation speed based on the container width and configuration.
+   */
   _applyAnimationSpeed() {
     const width = this.container.offsetWidth;
     const speedFactor = Math.max(width / 300, 1);
     const duration =
       (this.config.baseSpeed * this.config.speedMultiplier) / speedFactor;
 
+    console.log("Applying animation speed. Duration:", duration, "seconds");
     this.ticker.style.animationDuration = `${duration}s`;
     this.ticker.style.animationDirection = this.config.rtl
       ? "reverse"
       : "normal";
   }
 
+  /**
+   * Adds interaction listeners for mouse, touch, and keyboard events.
+   */
   _addInteractionListeners() {
-    // Mouse hover
+    console.log("Adding interaction listeners...");
     this.ticker.addEventListener("mouseover", (event) => {
       const target = event.target.closest(".ticker-item a");
       if (target) {
+        console.log("Mouseover on ticker item:", target.textContent);
         this.pauseTicker();
         this._showPopup(target);
       }
     });
 
-    // Touch support
     this.ticker.addEventListener("touchstart", (event) => {
       const target = event.target.closest(".ticker-item a");
       if (target) {
-        event.preventDefault(); // Prevent immediate click
+        event.preventDefault();
+        console.log("Touchstart on ticker item:", target.textContent);
         this.pauseTicker();
         this._showPopup(target);
       }
     });
 
-    // Focus handling for keyboard navigation
     this.ticker.addEventListener("focusin", (event) => {
       const target = event.target.closest(".ticker-item a");
       if (target) {
+        console.log("Focusin on ticker item:", target.textContent);
         this.pauseTicker();
         this._showPopup(target);
       }
     });
   }
 
+  /**
+   * Shows a popup with detailed information about a ticker item.
+   * @param {HTMLElement} target - The ticker item link element.
+   */
   _showPopup(target) {
-    // Clear any existing popups
+    console.log("Showing popup for:", target.textContent);
     this._removeAllPopups();
 
-    // Get data from the target
     const title = target.querySelector("strong").textContent;
     const fullContent = target.getAttribute("data-full-content");
-    const url = target.href.replace(/^https?:\/\//, ""); // Remove 'https://' or 'http://'
+    const url = target.href.replace(/^https?:\/\//, "");
 
-    // Create popup
     const popup = document.createElement("div");
     popup.className = "ticker-popup";
     popup.setAttribute("role", "tooltip");
-    popup.setAttribute("tabindex", "0"); // Make focusable for accessibility
+    popup.setAttribute("tabindex", "0");
 
-    // Structure the content with title, content, and URL
     const titleElement = document.createElement("h3");
     titleElement.className = "ticker-popup-title";
     titleElement.textContent = title;
@@ -268,36 +341,30 @@ class Ticker {
 
     const urlElement = document.createElement("div");
     urlElement.className = "ticker-popup-link";
-    urlElement.textContent = url; // Display the actual URL without 'https://'
+    urlElement.textContent = url;
 
-    // Add content to popup
     popup.appendChild(titleElement);
     popup.appendChild(contentElement);
     popup.appendChild(urlElement);
 
-    // First append to DOM to get dimensions
     document.body.appendChild(popup);
 
-    // Position the popup based on the ticker's position
+    console.log("Popup added to DOM.");
     const rect = target.getBoundingClientRect();
     const isTickerAtTop = document.body.classList.contains("ticker-top");
 
-    // Calculate initial position
     let popupLeft = rect.left + rect.width / 2 - popup.offsetWidth / 2;
 
-    // Ensure the popup stays within the viewport
     const viewportWidth = window.innerWidth;
     if (popupLeft < 10) {
-      popupLeft = 10; // Add padding from the left edge
+      popupLeft = 10;
     } else if (popupLeft + popup.offsetWidth > viewportWidth - 10) {
-      popupLeft = viewportWidth - popup.offsetWidth - 10; // Add padding from the right edge
+      popupLeft = viewportWidth - popup.offsetWidth - 10;
     }
 
     if (isTickerAtTop) {
-      // Place popup below the ticker with at least 50px space
       popup.style.top = `${rect.bottom + window.scrollY + 50}px`;
     } else {
-      // Place popup above the ticker with at least 50px space
       popup.style.top = `${
         rect.top + window.scrollY - popup.offsetHeight - 50
       }px`;
@@ -305,11 +372,10 @@ class Ticker {
 
     popup.style.left = `${popupLeft}px`;
 
-    // Add the "show" class to make the popup visible with transition
     requestAnimationFrame(() => popup.classList.add("show"));
 
-    // Remove popup on mouse leave or blur
     const removePopup = () => {
+      console.log("Removing popup.");
       this._removePopup(popup);
       this.resumeTicker();
     };
@@ -317,12 +383,15 @@ class Ticker {
     target.addEventListener("mouseleave", removePopup, { once: true });
     target.addEventListener("blur", removePopup, { once: true });
 
-    // Auto-remove after some time on touch devices
     if ("ontouchstart" in window) {
       setTimeout(removePopup, 3000);
     }
   }
 
+  /**
+   * Removes a specific popup element.
+   * @param {HTMLElement} popup - The popup element to remove.
+   */
   _removePopup(popup) {
     if (!popup) return;
     popup.classList.remove("show");
@@ -330,24 +399,38 @@ class Ticker {
       if (popup.parentNode) {
         popup.parentNode.removeChild(popup);
       }
-    }, 300); // Match CSS transition time
+    }, 300);
   }
 
+  /**
+   * Removes all popups from the DOM.
+   */
   _removeAllPopups() {
     const popups = document.querySelectorAll(".ticker-popup");
     popups.forEach((popup) => this._removePopup(popup));
   }
 
+  /**
+   * Pauses the ticker animation.
+   */
   pauseTicker() {
+    console.log("Pausing ticker.");
     this.ticker.classList.add("paused");
     this.isPaused = true;
   }
 
+  /**
+   * Resumes the ticker animation.
+   */
   resumeTicker() {
+    console.log("Resuming ticker.");
     this.ticker.classList.remove("paused");
     this.isPaused = false;
   }
 
+  /**
+   * Toggles the ticker animation between paused and running states.
+   */
   togglePause() {
     if (this.isPaused) {
       this.resumeTicker();
@@ -355,7 +438,6 @@ class Ticker {
       this.pauseTicker();
     }
 
-    // Update pause button state if it exists
     const pauseButton = document.getElementById("ticker-pause");
     if (pauseButton) {
       pauseButton.setAttribute("aria-pressed", this.isPaused);
@@ -363,29 +445,24 @@ class Ticker {
     }
   }
 
+  /**
+   * Updates the ticker configuration and reapplies styles and animations.
+   * @param {Object} newConfig - New configuration options to merge.
+   * @returns {Ticker} The updated Ticker instance.
+   */
   updateConfig(newConfig) {
+    console.log("Updating configuration:", newConfig);
     this.config = { ...this.config, ...newConfig };
     this._applyTheme();
     this._applyAnimationSpeed();
-    this._applyStyles(); // Reapply styles if updated
+    this._applyStyles();
     return this;
   }
 }
 
 // Initialize the ticker when the DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Get configuration from globals or use defaults
-  const ticker = new Ticker({
-    dataUrl: typeof TICKER_URL !== "undefined" ? TICKER_URL : undefined,
-    baseSpeed: typeof BASE_SPEED !== "undefined" ? BASE_SPEED : undefined,
-    speedMultiplier:
-      typeof SPEED_MULTIPLIER !== "undefined" ? SPEED_MULTIPLIER : undefined,
-    rtl: typeof RTL !== "undefined" ? RTL : undefined,
-    darkMode: typeof DARK_MODE !== "undefined" ? DARK_MODE : undefined,
-    position:
-      typeof TICKER_POSITION !== "undefined" ? TICKER_POSITION : undefined,
-  });
-
-  // Make ticker accessible globally if needed
-  window.tickerApp = ticker;
+  console.log("DOM fully loaded. Initializing Ticker...");
+  const ticker = new Ticker();
+  window.tickerApp = ticker; // Make ticker accessible globally if needed
 });

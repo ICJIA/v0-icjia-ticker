@@ -46,3 +46,6 @@ coverage/
 
 # Ignore sample environment files
 !.env.sample
+
+# Do not ignore the config.json file
+!config.json
