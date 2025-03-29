@@ -1,3 +1,9 @@
+:root {
+    --ticker-padding: 3px 0; /* Configurable padding for the ticker */
+    --ticker-text-color-light: #000; /* Configurable text color for light mode */
+    --ticker-text-color-dark: #fff; /* Configurable text color for dark mode */
+}
+
 body {
     margin: 0;
     font-family: sans-serif;
@@ -38,8 +44,8 @@ body.ticker-bottom .ticker-container {
     color: var(--ticker-text-color, #fff); /* Configurable text color */
     white-space: nowrap;
     position: relative;
-    padding: 12px 0;
-    min-height: 50px;
+    padding: var(--ticker-padding); /* Use configurable padding */
+    min-height: 40px; /* Adjusted minimum height */
     z-index: 9999; /* Ensure the ticker stays above other content */
     position: fixed; /* Stick to the top or bottom */
 }
@@ -74,7 +80,7 @@ body.ticker-bottom .ticker-container {
 }
 
 .ticker-item strong {
-    font-weight: bold;
+    font-weight: 900; /* Increased font weight for the title */
     margin-right: 5px;
 }
 
@@ -90,12 +96,12 @@ body.ticker-bottom .ticker-container {
 
 body.dark-mode .ticker-container {
     background-color: #000;
-    color: #fff;
+    color: var(--ticker-text-color-dark); /* Use configurable text color for dark mode */
 }
 
 body.light-mode .ticker-container {
     background-color: #fff;
-    color: #000;
+    color: var(--ticker-text-color-light); /* Use configurable text color for light mode */
 }
 
 body.light-mode .ticker a {
@@ -157,6 +163,7 @@ body.dark-mode .ticker a:hover {
     font-size: var(--bubble-title-font-size, 16px);
     width: 100%;
     text-align: left; /* Align title to the left */
+    font-weight: 900; /* Increased font weight for the title in the popup */
 }
 
 .ticker-popup-content {
