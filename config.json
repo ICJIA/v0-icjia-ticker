@@ -1,10 +1,10 @@
 {
     "dataUrl": "ticker-data.json",
     "baseSpeed": 16,
-    "speedMultiplier": 4,
+    "speedMultiplier": 8,
     "rtl": false,
     "darkMode": true,
-    "position": "top",
+    "position": "bottom",
     "retryAttempts": 3,
     "retryDelay": 2000,
     "bubbleTitleFontSize": "14px",
