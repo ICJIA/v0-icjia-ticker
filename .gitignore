@@ -1,0 +1,48 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+.cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore compiled files
+*.out
+*.exe
+*.o
+*.obj
+
+# Ignore sample environment files
+!.env.sample

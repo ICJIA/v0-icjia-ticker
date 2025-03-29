@@ -1,0 +1,104 @@
+{
+    "items": [
+        {
+            "title": "Official Vue 3 Website",
+            "content": "Vue 3 is the new standard",
+            "url": "https://vuejs.org"
+        },
+        {
+            "title": "Vuetify 3 Material Design",
+            "content": "Vuetify 3 supports Material You",
+            "url": "https://next.vuetifyjs.com"
+        },
+        {
+            "title": "Mozilla Developer Network",
+            "content": "Explore MDN Web Docs",
+            "url": "https://developer.mozilla.org"
+        },
+        {
+            "title": "GitHub Trending Repositories",
+            "content": "Check GitHub Trending",
+            "url": "https://github.com/trending"
+        },
+        {
+            "title": "OpenAI Home Page",
+            "content": "OpenAI: The future is now",
+            "url": "https://openai.com"
+        },
+        {
+            "title": "Weekly roundup of JS news",
+            "content": "JavaScript Weekly: Latest updates",
+            "url": "https://javascriptweekly.com"
+        },
+        {
+            "title": "TypeScript official site",
+            "content": "TypeScript 5.4 released",
+            "url": "https://www.typescriptlang.org"
+        },
+        {
+            "title": "CSS Tricks + DigitalOcean",
+            "content": "CSS-Tricks has merged with DigitalOcean",
+            "url": "https://css-tricks.com"
+        },
+        {
+            "title": "TailwindCSS Utility Classes",
+            "content": "Tailwind CSS v3 is out",
+            "url": "https://tailwindcss.com"
+        },
+        {
+            "title": "Developer survey results",
+            "content": "Stack Overflow Developer Survey 2024",
+            "url": "https://stackoverflow.blog"
+        },
+        {
+            "title": "Vite - Next Generation Frontend Tooling",
+            "content": "Vite is the go-to build tool",
+            "url": "https://vitejs.dev"
+        },
+        {
+            "title": "Video tutorials for Vue.js",
+            "content": "Learn Vue with Vue Mastery",
+            "url": "https://www.vuemastery.com"
+        },
+        {
+            "title": "The Nuxt 3 Framework",
+            "content": "Nuxt 3 adds full static support",
+            "url": "https://nuxt.com"
+        },
+        {
+            "title": "New Firebase Pricing",
+            "content": "Firebase updates its pricing model",
+            "url": "https://firebase.google.com"
+        },
+        {
+            "title": "Serverless MySQL Platform",
+            "content": "PlanetScale: Next-gen serverless SQL",
+            "url": "https://planetscale.com"
+        },
+        {
+            "title": "Modern secure runtime for JS",
+            "content": "Deno deploys with ease",
+            "url": "https://deno.com"
+        },
+        {
+            "title": "Chrome Developer Features",
+            "content": "Chrome DevTools just got better",
+            "url": "https://developer.chrome.com"
+        },
+        {
+            "title": "Latest in Node.js LTS",
+            "content": "Node.js 21 features released",
+            "url": "https://nodejs.org"
+        },
+        {
+            "title": "Codrops Tutorials & UI Ideas",
+            "content": "Dribbble for developers: Codrops",
+            "url": "https://tympanus.net/codrops/"
+        },
+        {
+            "title": "The Verge: Tech & AI News",
+            "content": "The Verge covers AI disruption",
+            "url": "https://www.theverge.com"
+        }
+    ]
+}

@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #111;
+    color: white;
+    position: relative;
+}
+
+body.ticker-top .ticker-container,
+body.ticker-bottom .ticker-container {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body.ticker-top .ticker-container {
+    top: 0;
+}
+
+body.ticker-bottom .ticker-container {
+    bottom: 0;
+}
+
+.ticker-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    overflow: hidden;
+    background-color: var(--ticker-background-color, #222); /* Configurable background color */
+    color: var(--ticker-text-color, #fff); /* Configurable text color */
+    white-space: nowrap;
+    position: relative;
+    padding: 12px 0;
+    min-height: 50px;
+}
+
+.ticker-wrapper {
+    overflow: hidden;
+}
+
+.ticker {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: scrollTicker linear infinite;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+.ticker.paused {
+    animation-play-state: paused;
+}
+
+.ticker-item {
+    display: inline-block;
+    font-size: clamp(0.85rem, 1vw, 1.1rem);
+    font-weight: 500;
+    margin: 0 20px;
+}
+
+.ticker-item strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.ticker-item a {
+    color: #000; /* Set link color to black */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.ticker-item a:hover {
+    color: #555; /* Slightly darker color on hover */
+}
+
+body.dark-mode .ticker-container {
+    background-color: #000;
+    color: #fff;
+}
+
+body.light-mode .ticker-container {
+    background-color: #fff;
+    color: #000;
+}
+
+body.light-mode .ticker a {
+    color: #007bff;
+}
+
+body.dark-mode .ticker a {
+    color: #4da6ff;
+}
+
+@keyframes scrollTicker {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-error {
+    text-align: center;
+    padding: 10px;
+    color: #ffbdbd;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.ticker-popup {
+    position: absolute;
+    padding: 20px; /* Equal padding all around */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content at the top */
+    align-items: flex-start; /* Align content to the left */
+    font-family: 'Roboto', sans-serif;
+    font-size: var(--bubble-content-font-size, 14px);
+    width: 300px;
+    height: 180px;
+    overflow: hidden;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-color: #f9f9f9; /* Lightened background for better contrast */
+    color: #222; /* Darkened text color for 1:8 contrast ratio */
+    border: none; /* Remove borders */
+    border-radius: 30px;
+    font-weight: 500;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.ticker-popup-title {
+    margin: 0 0 8px 0;
+    font-size: var(--bubble-title-font-size, 16px);
+    width: 100%;
+    text-align: left; /* Align title to the left */
+}
+
+.ticker-popup-content {
+    margin: 0; /* Remove extra margin */
+    width: 100%;
+    text-align: left; /* Align content to the left */
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* Limit to 6 lines */
+    -webkit-box-orient: vertical;
+    line-clamp: 6; /* Add standard property for compatibility */
+}
+
+.ticker-popup-link {
+    margin-top: 10px; /* Add spacing below the content */
+    font-size: 12px; /* Slightly smaller font size */
+    font-weight: bold; /* Make the URL bold */
+    color: #fff; /* Change link color to white */
+    text-align: left; /* Align URL to the left */
+    word-wrap: break-word; /* Ensure long URLs wrap properly */
+}
+
+.ticker-popup-link:hover {
+    color: #0056b3; /* Darker color on hover */
+}
+
+body.light-mode .ticker-popup {
+    background-color: #f9f9f9; /* Lightened background for light mode */
+    color: #222; /* Darkened text color for light mode */
+    border: none; /* Remove borders */
+}
+
+body.dark-mode .ticker-popup {
+    background-color: #333; /* Slightly lighter background for dark mode */
+    color: #f9f9f9; /* Lightened text color for dark mode */
+    border: none; /* Remove borders */
+}
+
+.ticker-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ticker-controls {
+    position: absolute;
+    right: 10px;
+    z-index: 100;
+}
+
+.ticker-top .ticker-controls {
+    top: 5px;
+}
+
+.ticker-bottom .ticker-controls {
+    bottom: 5px;
+}
+
+.ticker-item a:focus {
+    outline: 2px solid #4d90fe;
+    outline-offset: 2px;
+}

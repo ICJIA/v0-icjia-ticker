@@ -1,0 +1,54 @@
+{
+    "items": [
+        {
+            "title": "Breaking News",
+            "content": "This is a very long piece of content to test the ticker and speech bubble functionality. It includes detailed information about the latest events happening around the world. The goal is to ensure that the ticker can handle long content gracefully without breaking the layout or causing issues with the speech bubble display.",
+            "url": "https://example.com/breaking-news"
+        },
+        {
+            "title": "Tech Update",
+            "content": "Technology is advancing at an unprecedented pace. This update covers the latest breakthroughs in artificial intelligence, quantum computing, and renewable energy. Companies are investing heavily in research and development to stay ahead in the competitive tech landscape. The future looks promising with innovations that aim to solve global challenges.",
+            "url": "https://example.com/tech-update"
+        },
+        {
+            "title": "Sports Highlights",
+            "content": "The sports world witnessed some thrilling moments this week. From last-minute goals in soccer to record-breaking performances in athletics, fans were treated to an unforgettable experience. This content aims to capture the excitement and provide a detailed recap of the most memorable events.",
+            "url": "https://example.com/sports-highlights"
+        },
+        {
+            "title": "Weather Alert",
+            "content": "Severe weather conditions are expected in several regions. Meteorologists predict heavy rainfall, strong winds, and potential flooding in low-lying areas. Residents are advised to stay updated with the latest forecasts and take necessary precautions to ensure their safety during this period.",
+            "url": "https://example.com/weather-alert"
+        },
+        {
+            "title": "Entertainment Buzz",
+            "content": "The entertainment industry is abuzz with excitement as new movies, TV shows, and music albums are set to release. Fans are eagerly awaiting the latest superhero blockbuster, which promises stunning visuals and an engaging storyline. Meanwhile, popular artists are gearing up for world tours to connect with their audiences.",
+            "url": "https://example.com/entertainment-buzz"
+        },
+        {
+            "title": "Finance Insights",
+            "content": "The stock market has been volatile this week, with major indices experiencing significant fluctuations. Analysts attribute this to a mix of economic data releases, corporate earnings reports, and geopolitical developments. Investors are advised to stay informed and make decisions based on thorough research.",
+            "url": "https://example.com/finance-insights"
+        },
+        {
+            "title": "Health Tips",
+            "content": "Maintaining a healthy lifestyle is crucial for overall well-being. Experts recommend regular exercise, a balanced diet, and adequate sleep. This article provides practical tips and advice to help individuals achieve their health goals and lead a fulfilling life.",
+            "url": "https://example.com/health-tips"
+        },
+        {
+            "title": "AI Revolution",
+            "content": "Artificial intelligence is transforming industries worldwide. From healthcare to finance, AI is enabling faster decision-making, improving efficiency, and creating new opportunities for innovation. This article explores the impact of AI and what the future holds for this groundbreaking technology.",
+            "url": "https://example.com/ai-revolution"
+        },
+        {
+            "title": "Space Exploration",
+            "content": "NASA has announced ambitious plans for future space exploration missions. These include sending astronauts to Mars, exploring the outer planets, and searching for signs of life beyond Earth. The space agency is collaborating with international partners to achieve these goals and push the boundaries of human knowledge.",
+            "url": "https://example.com/space-exploration"
+        },
+        {
+            "title": "Global Events",
+            "content": "World leaders gathered this week to discuss pressing global issues, including climate change, economic recovery, and international security. The summit resulted in several key agreements aimed at fostering cooperation and addressing the challenges facing humanity.",
+            "url": "https://example.com/global-events"
+        }
+    ]
+}

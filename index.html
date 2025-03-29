@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Ticker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div
+      id="ticker-container"
+      class="ticker-container"
+      role="region"
+      aria-label="News Ticker"
+    >
+      <div
+        id="ticker-error"
+        class="ticker-error"
+        role="alert"
+        aria-live="assertive"
+      >
+        <!-- Placeholder error message -->
+        Unable to load ticker. Please try again later.
+      </div>
+
+      <div
+        id="ticker-wrapper"
+        class="ticker-wrapper"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div id="ticker" class="ticker" role="marquee" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Add this somewhere in your HTML for pause/play functionality -->
+    <!-- <div class="ticker-controls">
+      <button id="ticker-pause" aria-label="Pause ticker" aria-pressed="false">
+        Pause
+      </button>
+    </div> -->
+
+    <script src="script.js"></script>
+  </body>
+</html>
