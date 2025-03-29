@@ -167,16 +167,14 @@ class Ticker {
       link.rel = "noopener noreferrer";
       link.setAttribute("tabindex", "0");
 
-      // Display title in bold and truncate content if necessary
+      // Display title in bold and truncate content after 50 characters if needed
       const title = document.createElement("strong");
       title.textContent = item.title || "Untitled";
-      const content = document.createTextNode(
-        `: ${
-          item.content.length > 25
-            ? item.content.slice(0, 25) + "..."
-            : item.content
-        }`
-      );
+      const contentText =
+        item.content.length > 50
+          ? item.content.slice(0, 50) + "..."
+          : item.content;
+      const content = document.createTextNode(contentText); // Removed extra space
 
       // Store full content in a data attribute for the popup
       link.setAttribute("data-full-content", item.content);

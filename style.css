@@ -70,7 +70,7 @@ body.ticker-bottom .ticker-container {
     display: inline-block;
     font-size: clamp(0.85rem, 1vw, 1.1rem);
     font-weight: 500;
-    margin: 0 20px;
+    margin: 0 40px; /* Increased spacing between ticker items */
 }
 
 .ticker-item strong {
@@ -103,7 +103,11 @@ body.light-mode .ticker a {
 }
 
 body.dark-mode .ticker a {
-    color: #4da6ff;
+    color: #5daeff; /* Slightly more saturated blue for better visibility */
+}
+
+body.dark-mode .ticker a:hover {
+    color: #82caff; /* Brighter blue on hover for better contrast */
 }
 
 @keyframes scrollTicker {
