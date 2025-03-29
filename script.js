@@ -24,6 +24,7 @@ class Ticker {
       this._bindEvents();
       this.fetchData();
       this._applyStyles();
+      this._initializeDashboard();
     });
   }
 
@@ -459,6 +460,51 @@ class Ticker {
     this._applyAnimationSpeed();
     this._applyStyles();
     return this;
+  }
+
+  /**
+   * Initializes the dashboard controls for dynamic updates.
+   */
+  _initializeDashboard() {
+    const positionSelect = document.getElementById("position-select");
+    const speedRange = document.getElementById("speed-range");
+    const themeSwitch = document.getElementById("theme-switch");
+    const themeLabel = document.getElementById("theme-label");
+
+    // Update ticker position
+    positionSelect.addEventListener("change", (event) => {
+      const position = event.target.value;
+      console.log(`Changing ticker position to: ${position}`);
+      this.config.position = position;
+      document.body.classList.toggle("ticker-top", position === "top");
+      document.body.classList.toggle("ticker-bottom", position === "bottom");
+    });
+
+    // Update ticker speed
+    speedRange.addEventListener("input", (event) => {
+      const speed = parseInt(event.target.value, 10);
+      console.log(`Changing ticker speed to: ${speed}`);
+      this.config.speed = speed;
+      this._applyAnimationSpeed();
+    });
+
+    // Toggle light/dark mode
+    themeSwitch.addEventListener("change", (event) => {
+      const isDarkMode = event.target.checked;
+      console.log(
+        `Changing theme to: ${isDarkMode ? "Dark Mode" : "Light Mode"}`
+      );
+      this.config.darkMode = isDarkMode;
+      document.body.classList.toggle("dark-mode", isDarkMode);
+      document.body.classList.toggle("light-mode", !isDarkMode);
+      themeLabel.textContent = isDarkMode ? "Dark Mode" : "Light Mode";
+    });
+
+    // Initialize theme switch state
+    themeSwitch.checked = this.config.darkMode;
+    themeLabel.textContent = this.config.darkMode ? "Dark Mode" : "Light Mode";
+    document.body.classList.toggle("dark-mode", this.config.darkMode);
+    document.body.classList.toggle("light-mode", !this.config.darkMode);
   }
 }
 

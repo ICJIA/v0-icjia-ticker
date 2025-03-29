@@ -7,12 +7,47 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a
+      href="https://github.com/ICJIA/v0-icjia-ticker"
+      target="_blank"
+      class="octocat-link"
+      aria-label="GitHub Repository"
+    >
+      <span class="octocat-tooltip">View Source on GitHub</span>
+      <img
+        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        alt="GitHub Octocat"
+        class="octocat-logo"
+      />
+    </a>
     <div class="centered-text">
       <h1>Responsive News Ticker Test</h1>
       <p>
         Inspired by ticker at bottom of
         <a href="https://washingtonpost.com" target="_blank">Washington Post</a>
       </p>
+      <!-- <p>
+        <a href="https://github.com/ICJIA/v0-icjia-ticker" target="_blank"
+          >Github&nbsp;&raquo;</a
+        >
+      </p> -->
+    </div>
+
+    <div class="dashboard">
+      <label for="position-select">Ticker Position:</label>
+      <select id="position-select">
+        <option value="top">Top</option>
+        <option value="bottom" selected>Bottom</option>
+      </select>
+
+      <label for="speed-range">Ticker Speed:</label>
+      <input id="speed-range" type="range" min="1" max="10" value="2" />
+
+      <label for="theme-switch" class="theme-switch-label">
+        <span id="theme-label">Dark Mode</span>
+        <input id="theme-switch" type="checkbox" class="theme-switch" />
+        <span class="slider"></span>
+      </label>
     </div>
 
     <div

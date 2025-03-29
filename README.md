@@ -1,4 +1,4 @@
-# Responsive News Ticker
+# Responsive News Ticker Test
 
 This project is a **proof-of-concept** for a responsive news ticker that can be used in future websites. It demonstrates how to fetch, display, and interact with dynamic content in a visually appealing and accessible way.
 
@@ -11,9 +11,17 @@ This project is a **proof-of-concept** for a responsive news ticker that can be 
 - **Speech Bubble Popups**: Displays detailed information about each news item in a speech bubble when hovered or focused.
 - **Configurable Options**:
   - Ticker speed and direction.
-  - Dark mode and light mode support.
+  - Light mode and dark mode toggle.
   - Speech bubble font sizes and background color.
 - **Accessibility**: Includes ARIA roles and keyboard navigation support.
+
+## Dashboard Controls
+
+The dashboard allows you to control the following:
+
+1. **Ticker Position**: Move the ticker to the top or bottom of the screen.
+2. **Ticker Speed**: Adjust the scrolling speed of the ticker (1 = fastest, 10 = slowest).
+3. **Theme**: Toggle between light mode and dark mode.
 
 ## Demo
 
@@ -45,21 +53,15 @@ To avoid this issue, you must serve the project files through a local server (e.
 
 You can customize the ticker by modifying the `Ticker` class in `script.js`. The following options are available:
 
-| Key                     | Default Value        | Description                                                                            |
-| ----------------------- | -------------------- | -------------------------------------------------------------------------------------- |
-| `dataUrl`               | `"ticker-data.json"` | URL of the JSON file containing the news items.                                        |
-| `baseSpeed`             | `16`                 | Base speed of the ticker.                                                              |
-| `speed`                 | `1`                  | Speed multiplier. `1` is the fastest, and higher values (e.g., `2`, `3`) slow it down. |
-| `rtl`                   | `false`              | Set to `true` for right-to-left scrolling.                                             |
-| `darkMode`              | `true`               | Enable or disable dark mode.                                                           |
-| `position`              | `"bottom"`           | Position of the ticker (`"top"` or `"bottom"`).                                        |
-| `retryAttempts`         | `3`                  | Number of retry attempts for fetching data.                                            |
-| `retryDelay`            | `2000`               | Delay in milliseconds between retry attempts.                                          |
-| `bubbleTitleFontSize`   | `"14px"`             | Font size for the speech bubble title.                                                 |
-| `bubbleContentFontSize` | `"12px"`             | Font size for the speech bubble content.                                               |
-| `bubbleBackgroundColor` | `"#fff"`             | Background color for the speech bubble.                                                |
-| `tickerBackgroundColor` | `"#222"`             | Background color for the ticker.                                                       |
-| `tickerTextColor`       | `"#fff"`             | Text color for the ticker.                                                             |
+| Key             | Default Value        | Description                                                                            |
+| --------------- | -------------------- | -------------------------------------------------------------------------------------- |
+| `dataUrl`       | `"ticker-data.json"` | URL of the JSON file containing the news items.                                        |
+| `speed`         | `2`                  | Speed multiplier. `1` is the fastest, and higher values (e.g., `2`, `3`) slow it down. |
+| `rtl`           | `false`              | Set to `true` for right-to-left scrolling.                                             |
+| `darkMode`      | `true`               | Enable or disable dark mode.                                                           |
+| `position`      | `"bottom"`           | Position of the ticker (`"top"` or `"bottom"`).                                        |
+| `retryAttempts` | `3`                  | Number of retry attempts for fetching data.                                            |
+| `retryDelay`    | `2000`               | Delay in milliseconds between retry attempts.                                          |
 
 ## File Structure
 
