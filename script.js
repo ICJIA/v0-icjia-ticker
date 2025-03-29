@@ -265,21 +265,18 @@ class Ticker {
   }
 
   /**
-   * Applies animation speed based on the container width and configuration.
+   * Applies animation speed based on a default fast speed and scales it using the `speed` configuration.
    */
   _applyAnimationSpeed() {
-    const containerWidth = this.container.offsetWidth; // Width of the ticker container
-    const tickerWidth = this.ticker.scrollWidth; // Total width of all ticker items
-    const baseSpeed = this.config.baseSpeed; // Base speed from config
-
-    // Calculate duration based on the total width of the ticker
-    const duration = (tickerWidth / containerWidth) * baseSpeed;
+    const speed = this.config.speed || 1; // Default to 1 (fastest) if not set
+    const baseDuration = 10; // Default fast duration in seconds
+    const scaledDuration = baseDuration * speed; // Scale duration based on speed
 
     console.log(
-      `Applying animation speed. Container width: ${containerWidth}px, Ticker width: ${tickerWidth}px, Duration: ${duration}s`
+      `Applying animation speed. Speed: ${speed}, Duration: ${scaledDuration}s`
     );
 
-    this.ticker.style.animationDuration = `${duration}s`;
+    this.ticker.style.animationDuration = `${scaledDuration}s`;
     this.ticker.style.animationDirection = this.config.rtl
       ? "reverse"
       : "normal";

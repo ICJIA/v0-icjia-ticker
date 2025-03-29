@@ -36,7 +36,7 @@ https://v0-ticker.netlify.app/
 
 3. Open your browser and navigate to `http://localhost:8000` to view the ticker.
 
-   > **Note**: The project requires a server to fetch the JSON file. Opening `index.html` directly in the browser will result in a CORS error. 
+   > **Note**: The project requires a server to fetch the JSON file. Opening `index.html` directly in the browser will result in a CORS error.
    > CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to prevent unauthorized access to resources from a different origin (domain, protocol, or port). When you open `index.html` directly by clicking on it, the browser treats the file as being served from the `file://` protocol. This causes a CORS error when the JavaScript code tries to fetch the `ticker-data.json` file because the browser blocks the request for security reasons.
 
 To avoid this issue, you must serve the project files through a local server (e.g., using Python, Node.js, or any other server) so that the browser treats the files as being served from the same origin.
@@ -45,19 +45,21 @@ To avoid this issue, you must serve the project files through a local server (e.
 
 You can customize the ticker by modifying the `Ticker` class in `script.js`. The following options are available:
 
-- `dataUrl`: URL of the JSON file containing the news items (default: `"ticker-data.json"`).
-- `baseSpeed`: Base speed of the ticker (default: `16`).
-- `speedMultiplier`: Multiplier for ticker speed (default: `14`).
-- `rtl`: Set to `true` for right-to-left scrolling (default: `false`).
-- `darkMode`: Enable or disable dark mode (default: `true`).
-- `position`: Position of the ticker (`"top"` or `"bottom"`, default: `"bottom"`).
-- `retryAttempts`: Number of retry attempts for fetching data (default: `3`).
-- `retryDelay`: Delay in milliseconds between retry attempts (default: `2000`).
-- `bubbleTitleFontSize`: Font size for the speech bubble title (default: `"14px"`).
-- `bubbleContentFontSize`: Font size for the speech bubble content (default: `"12px"`).
-- `bubbleBackgroundColor`: Background color for the speech bubble (default: `"#fff"`).
-- `tickerBackgroundColor`: Background color for the ticker (default: `"#222"`).
-- `tickerTextColor`: Text color for the ticker (default: `"#fff"`).
+| Key                     | Default Value        | Description                                                                            |
+| ----------------------- | -------------------- | -------------------------------------------------------------------------------------- |
+| `dataUrl`               | `"ticker-data.json"` | URL of the JSON file containing the news items.                                        |
+| `baseSpeed`             | `16`                 | Base speed of the ticker.                                                              |
+| `speed`                 | `1`                  | Speed multiplier. `1` is the fastest, and higher values (e.g., `2`, `3`) slow it down. |
+| `rtl`                   | `false`              | Set to `true` for right-to-left scrolling.                                             |
+| `darkMode`              | `true`               | Enable or disable dark mode.                                                           |
+| `position`              | `"bottom"`           | Position of the ticker (`"top"` or `"bottom"`).                                        |
+| `retryAttempts`         | `3`                  | Number of retry attempts for fetching data.                                            |
+| `retryDelay`            | `2000`               | Delay in milliseconds between retry attempts.                                          |
+| `bubbleTitleFontSize`   | `"14px"`             | Font size for the speech bubble title.                                                 |
+| `bubbleContentFontSize` | `"12px"`             | Font size for the speech bubble content.                                               |
+| `bubbleBackgroundColor` | `"#fff"`             | Background color for the speech bubble.                                                |
+| `tickerBackgroundColor` | `"#222"`             | Background color for the ticker.                                                       |
+| `tickerTextColor`       | `"#fff"`             | Text color for the ticker.                                                             |
 
 ## File Structure
 
