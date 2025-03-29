@@ -186,11 +186,11 @@ class Ticker {
    */
   showError(message) {
     if (!message) {
-      this.errorBox.style.display = "none";
+      this.errorBox.style.display = "none"; // Keep the error hidden
       return;
     }
     this.errorBox.textContent = message;
-    this.errorBox.style.display = "block";
+    this.errorBox.style.display = "block"; // Show the error only when needed
   }
 
   /**

@@ -8,12 +8,13 @@ This project is a **proof-of-concept** for a responsive news ticker that can be 
 
 - **Dynamic Content**: Fetches news items from a JSON file (`ticker-data.json`) and displays them in a scrolling ticker.
 - **Responsive Design**: Adapts to different screen sizes and ensures the ticker is always visible.
-- **Speech Bubble Popups**: Displays detailed information about each news item in a speech bubble when hovered or focused.
+- **Speech Bubble Popups**: Displays detailed information about each news item in a speech bubble when hovered or focused. The bubble automatically closes when hovered over or when a link is clicked.
 - **Configurable Options**:
   - Ticker speed and direction.
   - Light mode and dark mode toggle.
   - Speech bubble font sizes and background color.
 - **Accessibility**: Includes ARIA roles and keyboard navigation support.
+- **Error Handling**: The error message is hidden by default and only displayed if there is an actual issue loading the ticker.
 
 ## Dashboard Controls
 

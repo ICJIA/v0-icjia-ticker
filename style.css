@@ -160,6 +160,7 @@ body.dark-mode .ticker a:hover {
 
 /* Animation: Smooth scrolling effect for the ticker */
 .ticker-error {
+    display: none; /* Hide the error message by default */
     text-align: center;
     padding: var(--ticker-error-padding); /* Use configurable padding */
     color: var(--ticker-error-color); /* Use configurable error text color */
