@@ -339,7 +339,7 @@ class Ticker {
 
     const title = target.querySelector("strong").textContent;
     const fullContent = target.getAttribute("data-full-content");
-    const url = target.href.replace(/^https?:\/\//, "");
+    const url = target.href.replace(/^https?:\/\//, ""); // Remove "https://"
 
     const popup = document.createElement("div");
     popup.className = "ticker-popup";
@@ -356,7 +356,7 @@ class Ticker {
 
     const urlElement = document.createElement("div");
     urlElement.className = "ticker-popup-link";
-    urlElement.textContent = url;
+    urlElement.textContent = url; // Display the link without "https://"
 
     popup.appendChild(titleElement);
     popup.appendChild(contentElement);
@@ -398,7 +398,11 @@ class Ticker {
     target.addEventListener("mouseleave", removePopup, { once: true });
     target.addEventListener("blur", removePopup, { once: true });
 
-    popup.addEventListener("mouseover", removePopup, { once: true }); // Close popup on hover
+    popup.addEventListener("click", (event) => {
+      event.stopPropagation(); // Prevent click from propagating to the ticker
+      console.log("Popup clicked. Removing popup.");
+      removePopup();
+    });
 
     if ("ontouchstart" in window) {
       setTimeout(removePopup, 3000);

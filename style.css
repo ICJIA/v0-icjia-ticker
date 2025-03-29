@@ -184,13 +184,17 @@ body.dark-mode .ticker a:hover {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
-    background-color: #f9f9f9; /* Lightened background for better contrast */
-    color: #222; /* Darkened text color for 1:8 contrast ratio */
+    background-color: var(--bubble-background-color, #f9f9f9); /* Unified background color */
+    color: #222; /* Unified text color */
     border: none; /* Remove borders */
     border-radius: var(--ticker-popup-border-radius); /* Use configurable border radius */
     font-weight: 500;
-    box-shadow: var(--ticker-popup-box-shadow); /* Use configurable shadow */
+    box-shadow: var(--ticker-popup-box-shadow); /* Default shadow */
     cursor: pointer;
+}
+
+body.light-mode .ticker-popup {
+    box-shadow: none; /* Remove box shadow in light mode */
 }
 
 .ticker-popup-title {
@@ -218,25 +222,16 @@ body.dark-mode .ticker a:hover {
     margin-top: 10px; /* Add spacing below the content */
     font-size: 12px; /* Slightly smaller font size */
     font-weight: bold; /* Make the URL bold */
-    color: #fff; /* Change link color to white */
+    color: inherit; /* Match the text color of the bubble */
     text-align: left; /* Align URL to the left */
     word-wrap: break-word; /* Ensure long URLs wrap properly */
+    opacity: 0.8; /* Slightly shade the link */
+    text-decoration: none; /* Remove underline */
+    transition: opacity 0.2s ease-in-out;
 }
 
 .ticker-popup-link:hover {
-    color: #0056b3; /* Darker color on hover */
-}
-
-body.light-mode .ticker-popup {
-    background-color: #f9f9f9; /* Lightened background for light mode */
-    color: #222; /* Darkened text color for light mode */
-    border: none; /* Remove borders */
-}
-
-body.dark-mode .ticker-popup {
-    background-color: #333; /* Slightly lighter background for dark mode */
-    color: #f9f9f9; /* Lightened text color for dark mode */
-    border: none; /* Remove borders */
+    opacity: 1; /* Fully visible on hover */
 }
 
 .ticker-popup.show {
