@@ -60,7 +60,7 @@ body.ticker-bottom .ticker-container {
 }
 
 body.light-mode.ticker-bottom .ticker-container {
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Add shadow at the top in light mode */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08); /* Reduced shadow thickness at the top in light mode */
 }
 
 .ticker-container {
@@ -125,14 +125,15 @@ body.light-mode.ticker-bottom .ticker-container {
 }
 
 body.dark-mode .ticker-container {
-    background-color: #000;
+    background-color: #000; /* Dark mode background */
     color: var(--ticker-text-color-dark); /* Use configurable text color for dark mode */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Reduced shadow thickness in dark mode */
 }
 
 body.light-mode .ticker-container {
     background-color: #fff; /* Light mode background */
     color: var(--ticker-text-color-light); /* Use configurable text color for light mode */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow in light mode */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Reduced shadow thickness in light mode */
 }
 
 /* Accessibility: Ensure sufficient contrast ratios for text and background colors */
