@@ -2,7 +2,7 @@
 
 This project is a **proof-of-concept** for a responsive news ticker that can be used in future websites. It demonstrates how to fetch, display, and interact with dynamic content in a visually appealing and accessible way.
 
-> **Inspiration**: This project was inspired by the news ticker at the bottom of the Washington Post homepage.
+> **Inspiration**: This project was inspired by the news ticker at the bottom of the [Washington Post](https://washingtonpost.com) homepage.
 
 ## Features
 
@@ -14,6 +14,10 @@ This project is a **proof-of-concept** for a responsive news ticker that can be 
   - Dark mode and light mode support.
   - Speech bubble font sizes and background color.
 - **Accessibility**: Includes ARIA roles and keyboard navigation support.
+
+## Demo
+
+https://v0-ticker.netlify.app/
 
 ## Installation
 
